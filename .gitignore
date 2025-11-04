@@ -1,6 +1,9 @@
 HELP.md
 build/
 .gradle/
+gradle/пш
+gradlew
+gradlew.bat
 !**/src/main/**
 !**/src/test/**
 
