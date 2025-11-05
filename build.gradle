@@ -1,19 +1,20 @@
 plugins {
     id 'java-library'
-    id 'io.qameta.allure' version '3.0.0'
+    id 'io.qameta.allure' version '2.11.2' // Более стабильная версия
 }
 
 repositories {
     mavenCentral()
 }
 
-def aspectjWeaverVersion = "1.9.24",
-    selenideVersion = "7.11.0",
-    restAssuredVersion = "5.5.6",
-    appiumVersion = "10.0.0",
-    allureVersion = "2.30.0",
-    junitVersion = "6.0.0",
-    slf4jVersion = "2.0.17"
+def aspectjWeaverVersion = "1.9.22", // Более стабильная версия
+    selenideVersion = "7.0.4",
+    restAssuredVersion = "5.4.0", // Более стабильная версия
+    appiumVersion = "9.2.2", // Более стабильная версия
+    allureVersion = "2.24.0", // Совместимая версия
+    junitVersion = "5.10.1", // JUnit 5 (не 6)
+    slf4jVersion = "2.0.9",
+    seleniumVersion = "4.15.0" // Добавляем явно Selenium
 
 allure {
     report {
@@ -37,12 +38,18 @@ dependencies {
             "io.appium:java-client:$appiumVersion",
             "io.rest-assured:rest-assured:$restAssuredVersion",
             "org.junit.jupiter:junit-jupiter:$junitVersion",
-            "org.slf4j:slf4j-simple:$slf4jVersion"
+            "org.slf4j:slf4j-simple:$slf4jVersion",
+            // fix @Nonnull
+            "com.google.code.findbugs:jsr305:3.0.2",
+            // Явно добавляем Selenium для совместимости
+            "org.seleniumhq.selenium:selenium-java:$seleniumVersion"
     )
 }
 
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
+    sourceCompatibility = '17'
+    targetCompatibility = '17'
 }
 
 tasks.withType(Test) {

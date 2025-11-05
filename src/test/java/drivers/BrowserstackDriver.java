@@ -6,10 +6,10 @@ import org.openqa.selenium.MutableCapabilities;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
-//import javax.annotation.Nonnull;
-
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 
 public class BrowserstackDriver implements WebDriverProvider {
 
@@ -17,24 +17,17 @@ public class BrowserstackDriver implements WebDriverProvider {
     public WebDriver createDriver(Capabilities capabilities) {
         MutableCapabilities caps = new MutableCapabilities();
 
-        // Set your access credentials
-        caps.setCapability("browserstack.user", "nikitariazanov_lF4iT7");
-        caps.setCapability("browserstack.key", "PVppp2V8F2ZqZd2hpduU");
+        String userName = "nikitariazanov_lF4iT7";
+        String accessKey = "PVppp2V8F2ZqZd2hpduU";
 
-        // Set URL of the application under test
-        caps.setCapability("app", "bs://c700ce60cf13ae8ed97705a55b8e022f13c5827c");
-
-        // Specify device and os_version for testing
-        caps.setCapability("device", "Google Pixel 9");
-        caps.setCapability("os_version", "16.0");
-
-        // Set other BrowserStack capabilities
+        caps.setCapability("browserstack.user", userName);
+        caps.setCapability("browserstack.key", accessKey);
+        caps.setCapability("app", "bs://sample.app");
+        caps.setCapability("device", "Google Pixel 7 Pro");
+        caps.setCapability("os_version", "13.0");
         caps.setCapability("project", "First Java Project");
         caps.setCapability("build", "browserstack-build-1");
         caps.setCapability("name", "first_test");
-
-        // Initialise the remote Webdriver using BrowserStack remote URL
-        // and desired capabilities defined above
         try {
             return new RemoteWebDriver(
                     new URL("https://hub.browserstack.com/wd/hub"), caps);

@@ -18,7 +18,6 @@ public class TestBase {
     static void beforeAll() {
         Configuration.browser = BrowserstackDriver.class.getName();
         Configuration.browserSize = null;
-        Configuration.timeout = 30000;
     }
 
     @BeforeEach
@@ -33,9 +32,9 @@ public class TestBase {
         System.out.println(sessionId);
 
 //        Attach.screenshotAs("Last screenshot"); // todo fix
-        Attach.pageSource();
+        //Attach.pageSource();
         closeWebDriver();
 
-        Attach.addVideo(sessionId);
+        //Attach.addVideo(sessionId);
     }
 }
