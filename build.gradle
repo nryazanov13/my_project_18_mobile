@@ -1,20 +1,19 @@
 plugins {
     id 'java-library'
-    id 'io.qameta.allure' version '2.11.2' // Более стабильная версия
+    id 'io.qameta.allure' version '2.11.2'
 }
 
 repositories {
     mavenCentral()
 }
 
-def aspectjWeaverVersion = "1.9.22", // Более стабильная версия
-    selenideVersion = "7.0.4",
-    restAssuredVersion = "5.4.0", // Более стабильная версия
-    appiumVersion = "9.2.2", // Более стабильная версия
-    allureVersion = "2.24.0", // Совместимая версия
-    junitVersion = "5.10.1", // JUnit 5 (не 6)
-    slf4jVersion = "2.0.9",
-    seleniumVersion = "4.15.0" // Добавляем явно Selenium
+def aspectjWeaverVersion = "1.9.22",
+    selenideVersion = "7.0.0",
+    restAssuredVersion = "5.3.0",
+    allureVersion = "2.21.0",
+    junitVersion = "5.9.3",
+    slf4jVersion = "2.0.7",
+    appiumVersion = "8.3.0"
 
 allure {
     report {
@@ -38,22 +37,11 @@ dependencies {
             "io.appium:java-client:$appiumVersion",
             "io.rest-assured:rest-assured:$restAssuredVersion",
             "org.junit.jupiter:junit-jupiter:$junitVersion",
-            "org.slf4j:slf4j-simple:$slf4jVersion",
-            // fix @Nonnull
-            "com.google.code.findbugs:jsr305:3.0.2",
-            // Явно добавляем Selenium для совместимости
-            "org.seleniumhq.selenium:selenium-java:$seleniumVersion"
+            "org.slf4j:slf4j-simple:$slf4jVersion"
     )
 }
 
-tasks.withType(JavaCompile) {
-    options.encoding = 'UTF-8'
-    sourceCompatibility = '17'
-    targetCompatibility = '17'
-}
-
 tasks.withType(Test) {
-    systemProperties(System.getProperties())
     useJUnitPlatform()
 
     testLogging {
@@ -61,11 +49,5 @@ tasks.withType(Test) {
             events "started", "skipped", "failed", "standard_error", "standard_out"
             exceptionFormat "short"
         }
-    }
-}
-
-task android(type: Test) {
-    useJUnitPlatform {
-        includeTags 'android'
     }
 }
